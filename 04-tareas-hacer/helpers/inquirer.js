@@ -2,6 +2,8 @@
 
 require('colors');
 const inquirer = require("inquirer");
+const tareas = require('../models/tareas');
+
 
 const preguntas = [
     {
@@ -90,10 +92,50 @@ const leerInput = async (message) => {
 
 };
 
+const listDelete  = async (arrObjetc = []) => {
+
+    const tareaModi = arrObjetc.map((t)=> {
+
+        return {
+            value: t.id,
+            name: t.desc,
+        }
+    });
+
+    const listTareaDelete = [{
+
+        type:'list',
+        name:'id',
+        message: '¿Seleccione la tarea borrar?',
+        choices: tareaModi,
+    }];
+
+
+     const {id} = await inquirer.prompt(listTareaDelete);
+
+     return id;
+
+};
+
+const confirmacionBorrar = async () =>{
+
+    const confirmacion = [{
+
+        type:'confirm',
+        name:'confir',
+        message: '¿Esta seguro de borrarlo?',
+    }];
+
+    const {confir} = await inquirer.prompt(confirmacion);
+    
+    return confir;
+};
+
 module.exports = {
 
     inquirerMenu,
     pausa,
     leerInput,
-
+    listDelete,
+    confirmacionBorrar
 };

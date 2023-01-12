@@ -3,7 +3,9 @@ require("colors");
 const { 
     inquirerMenu,
     pausa,
-    leerInput
+    leerInput,
+    listDelete,
+    confirmacionBorrar
 } = require("./helpers/inquirer");
 // const Tarea = require("./models/tarea");
 const Tareas = require("./models/tareas");
@@ -27,8 +29,6 @@ const main = async()=>{
 
     };
 
-    await pausa();
-
     do {
 
         opt = await inquirerMenu();
@@ -40,11 +40,28 @@ const main = async()=>{
                 tareas.crearTarea(des);
                 break;
             case '2':
-                console.log(tareas._listado);
+                tareas.listado_Completo();
+               /*  console.log(tareas._listado); */
                 break;
+            case "3":
+                tareas.listadoEstado();
+                break;
+            case "4":
+                tareas.listadoEstado(null);
+                break;
+            case "5":
+                
+            break;
+            case "6":
+                const id = await listDelete(tareas.listadoArr);
+                const validar = await confirmacionBorrar();
+                if (validar) {
+                    tareas.borrarTarea(String(id));
+                };
+            break;
         };
 
-        /* guardarDB(tareas.listadoArr); */
+        guardarDB(tareas.listadoArr);
         // console.log({opt});
         // console.log('\n');
 

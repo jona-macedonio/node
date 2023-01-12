@@ -27,6 +27,21 @@ class Tareas {
 
     };
 
+    borrarTarea(id=''){
+
+        /* if(this._listado[id]){
+
+            delete this._listado[id];
+
+        }; */
+
+        
+        const new_Array = this._listado.filter(item => item.id !== id);
+        
+        this._listado = new_Array;
+
+    };
+
     cargarTareasFromArray(tareas = []){
 
         /* for (let x of tareas) {
@@ -51,6 +66,49 @@ class Tareas {
 
         const tarea = new Tarea(desc);
         this._listado[tarea.id] = tarea;
+
+    };
+
+    listado_Completo(){
+
+        
+        let estado;
+        this.listadoArr.forEach((t,index)=>{
+            let iterador = index + 1;
+            if(t.completadoEn == null){
+
+                estado = "Pendiente" .red;
+                console.log(`${String(iterador).magenta}. ${t.desc} :: ${estado}`);
+
+            }else{
+
+                estado = "Completada" .green;
+                console.log(`${String(iterador).magenta}. ${t.desc} :: ${estado}`);
+
+            };
+        });
+
+    };
+
+    listadoEstado(completada = true){
+
+        let iterador = 1;
+       
+        this.listadoArr.forEach((t)=>{
+
+            const estado = (t.completadoEn) ? t.completadoEn : 'Pendiente'.red;
+        
+            if(t.completadoEn && completada){
+                
+                console.log(`\n${String(iterador++).magenta}. ${t.desc} :: ${estado}`);
+
+            }else if(t.completadoEn == completada){
+
+                
+                console.log(`\n${String(iterador++).magenta}. ${t.desc} :: ${estado}`);
+            };
+
+        });
 
     };
 
