@@ -2,7 +2,6 @@
 
 require('colors');
 const inquirer = require("inquirer");
-const tareas = require('../models/tareas');
 
 
 const preguntas = [
@@ -92,14 +91,21 @@ const leerInput = async (message) => {
 
 };
 
-const listDelete  = async (arrObjetc = []) => {
+const listDelete  = async (arrObjetc) => {
 
     const tareaModi = arrObjetc.map((t)=> {
 
         return {
             value: t.id,
             name: t.desc,
-        }
+        };
+    });
+
+    tareaModi.unshift({
+
+        value:'0',
+        name:'Cancelar',
+        
     });
 
     const listTareaDelete = [{

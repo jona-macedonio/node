@@ -57,6 +57,7 @@ const main = async()=>{
                 const validar = await confirmacionBorrar();
                 if (validar) {
                     tareas.borrarTarea(String(id));
+                    console.log('Tarea borrada');
                 };
             break;
         };
