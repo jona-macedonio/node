@@ -5,7 +5,8 @@ const {
     pausa,
     leerInput,
     listDelete,
-    confirmacionBorrar
+    confirmacionBorrar,
+    completarTareas
 } = require("./helpers/inquirer");
 // const Tarea = require("./models/tarea");
 const Tareas = require("./models/tareas");
@@ -50,14 +51,19 @@ const main = async()=>{
                 tareas.listadoEstado(null);
                 break;
             case "5":
-                
+               const  ids = await completarTareas(tareas.listadoArr);
+               /* console.log(ids); */
+               tareas.toggleTareas(ids);
             break;
             case "6":
                 const id = await listDelete(tareas.listadoArr);
-                const validar = await confirmacionBorrar();
-                if (validar) {
-                    tareas.borrarTarea(String(id));
-                    console.log('Tarea borrada');
+                if(id !== '0'){
+                    const validar = await confirmacionBorrar();
+                    if (validar) {
+                        tareas.borrarTarea(String(id));
+                        console.log('Tarea borrada');
+                    };
+
                 };
             break;
         };

@@ -137,11 +137,40 @@ const confirmacionBorrar = async () =>{
     return confir;
 };
 
+const completarTareas  = async (arrObjetc) => {
+
+    const tareaModi = arrObjetc.map((t)=> {
+
+            return {
+                value: t.id,
+                name: t.desc,
+                checked:(t.completadoEn) ? true : false,
+            };
+    });
+
+
+
+    const listTareaDelete = [{
+
+        type:'checkbox',
+        name:'ids',
+        message: 'Selecciones',
+        choices: tareaModi,
+    }];
+
+
+     const {ids} = await inquirer.prompt(listTareaDelete);
+     
+     return ids; 
+
+};
+
 module.exports = {
 
     inquirerMenu,
     pausa,
     leerInput,
     listDelete,
-    confirmacionBorrar
+    confirmacionBorrar,
+    completarTareas
 };

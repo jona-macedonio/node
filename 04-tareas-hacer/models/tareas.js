@@ -112,6 +112,52 @@ class Tareas {
 
     };
 
+    retornoIndex(arr = [],idRead){
+
+        for(let i = 0; i<arr.length;i++){
+
+            if(arr[i].id == idRead){
+
+                return i;
+
+            }
+
+        };
+
+    };
+
+    toggleTareas(ids = []){
+
+        ids.forEach(id =>{
+
+            const index =  this.retornoIndex(this._listado,id);
+           
+            const tarea = this._listado[index];
+
+            if(!tarea.completadoEn){
+
+                tarea.completadoEn = new Date().toISOString();
+
+            }; 
+        
+        });
+
+        this.listadoArr.forEach((tarea,index)=>{
+
+            if(!ids.includes(tarea.id)){
+
+                const tarea = this._listado[index];
+                tarea.completadoEn = null;
+
+            };
+
+        });
+
+    };
+
+
+    
+
 };
 
 
