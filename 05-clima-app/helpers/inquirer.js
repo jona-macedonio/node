@@ -71,11 +71,40 @@ const leerInput = async (message) => {
 
 };
 
+const ciudadList = async (arrayLugares = []) =>{
+
+    
+    const choicesLugar = arrayLugares.map((lugarItem,i)=>({
+        value:lugarItem.id,
+        name:`${(i+1)}. ${lugarItem.nombre}`
+    }));
+
+    choicesLugar.unshift({
+
+        value:0,
+        name:'0. Cancelar',
+        
+    });
+
+    const listCiudad = [{
+        type:'list',
+        name: 'lugar',
+        message: 'Seleccione un lugar',
+        choices: choicesLugar,
+    }];
+
+    const {lugar} = await inquirer.prompt(listCiudad);
+    return lugar;
+};
+
+
+
 module.exports = {
 
     inquirerMenu,
     pausa,
     leerInput,
+    ciudadList
 
 };
 
