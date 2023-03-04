@@ -1,10 +1,15 @@
-const express = require('express')
+const express = require('express');
+const hbs = require('hbs');
+require('dotenv').config(); // Configuramdo las variables de entorno
 const app = express();
 
-const port = 8080;
-//  TODO: require('hbs');
-app.set('view engine', 'hbs');
 
+const port = process.env.PORT;
+//  TODO: require('hbs');
+
+// !Headlebars
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 // Servir una pagina estatica
 app.use( express.static('public') ); // Siempre tiene prioridad sobre los response que sigan
 
@@ -25,13 +30,25 @@ app.get('/',(req,res) => {
 
 app.get('/generic',(req,res) => {
 
-  res.sendFile(__dirname + '/public/generic.html');
+  res.render('generic',{
+
+    nombre: 'Jonathan Macedonio',
+    titulo: 'Curso Node'
+    
+  });
+  // res.sendFile(__dirname + '/public/generic.html');
 
 });
 
 app.get('/elements',(req,res) => {
 
-  res.sendFile(__dirname + '/public/elements.html');
+  res.render('elements',{
+
+    nombre: 'Jonathan Macedonio',
+    titulo: 'Curso Node'
+    
+  });
+  // res.sendFile(__dirname + '/public/elements.html');
 
 });
 
@@ -39,12 +56,11 @@ app.get('/elements',(req,res) => {
 app.get('*',(req,res) => {
 
   // Mandar algo que este en la ruta publica
-    res.sendFile(__dirname + '/public/404.html');
-
+  res.render('404')
 });
 
 
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-  })
+  });
